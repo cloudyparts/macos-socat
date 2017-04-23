@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# exit on error
+set -e
+
+SOCKET=${SOCKET:=/var/run/docker.sock}
+PORT=${PORT:=2375}
+ADDR=$(hostname -i)
+
+exec socat -d -d TCP-LISTEN:${PORT},reuseaddr,fork,bind=${ADDR} UNIX-CONNECT:${SOCKET}
